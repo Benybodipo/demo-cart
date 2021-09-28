@@ -33,12 +33,12 @@
                                         ${{$product->price}}
                                     </td>
                                     <td>
-                                        <input type="number" name="" min="1" value='{{session()->get("items.id_{$product->id}.qty")}}' id="" style="max-width: 50px" class="form-control form-control-sm update-quamtity" data-route="{{route('update-item', [request()->route('api_key'), $product->id])}}" >
+                                        <input type="number" name="" min="1" value='{{$items["id_{$product->id}"]["qty"]}}' id="" style="max-width: 50px" class="form-control form-control-sm update-quamtity" data-route="{{route('update-item', [request()->route('api_key'), $product->id])}}" >
                                     </td>
                                     <td class="subtotal">
                                         $
                                         <span>
-                                            {{$product->price * session()->get("items.id_{$product->id}.qty")}}
+                                            {{$product->price * $items["id_{$product->id}"]["qty"]}}
                                         </span>
                                     </td>
                                     <td>

@@ -8,11 +8,12 @@ use App\Models\Product;
 use App\Models\Key;
 use Validator;
 use Session;
+use Facades\App\Http\Controllers\keyController;
 
 class CartController extends Controller
 {
     public function requestApiKey(Request $request)
-    {
+    {   
         $method = strtolower($request->method());
         
         if ($method == 'get')
@@ -32,10 +33,23 @@ class CartController extends Controller
                 ]);
                 return redirect()->back()->withInput();
             }
+
+            # Create a new api key
+            $new_key = keyController::create($request);
+            $new_key = (object) $new_key->original['key'];
+
+            # Create
+            Cart::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'api_key_id' => $new_key->id,
+            ]);
+
             $request->session()->flash('notification', [
                 'type' => 'success',
                 'message' => "Request sent, please check your inbox.",
             ]);
+
             return redirect()->route('access-cart');
         }
 
@@ -45,7 +59,7 @@ class CartController extends Controller
     public function accessCart(Request $request)
     {
         $method = strtolower($request->method());
-        // dd($method);
+        
         if ($method == 'get')
         {
             return view('pages.access-cart');
@@ -71,15 +85,17 @@ class CartController extends Controller
     
     public function home(Request $request, $api_key = NULL)
     {
-        $cart = Cart::where('api_key_id', getenv('DEMO_API_ID'))->get();
-        $items = session()->get('items');
+        $dbCart = Cart::where('api_key_id', getenv('DEMO_API_ID'))->first();
+        $sessionCart = session()->get('items');
         
-        // $items = (!count($cart)) ? () : $items;
+        $items = (!$sessionCart) ? json_decode($dbCart->content) : $sessionCart;
+        
         $ids = array_map(function ($value) { return explode('_', $value)[1]; }, array_keys($items));
         $count = array_map(function ($value) {  return $value['qty']; }, $items);
 
         $products = \App\Models\Product::whereIn('id', $ids)->get();
         return view('pages.cart')->with(compact('products'))
+                            ->with(compact('items'))
                             ->with(compact('ids'))
                             ->with(compact('count'));
     }
@@ -91,7 +107,7 @@ class CartController extends Controller
 
     public function update(Request $request)
     {
-        // dd($request->all());
+        # 1. Validate input
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:carts'
         ]);
@@ -104,10 +120,11 @@ class CartController extends Controller
             ]);
             return redirect()->back()->withInput();
         }
+        # 2. Update 
         $success = Cart::where('api_key_id', getenv('DEMO_API_ID'))
                         ->first()
                         ->update([ 'email' => $request->email ]);
-
+        # 3. Return with flash message
         if ($success)
         {
             $request->session()->flash('notification', [
