@@ -1,5 +1,3 @@
-{{-- @if ($message = Session::get('errors')) --}}
-{{-- @endif --}}
 @if (session('notification'))
     <div class="alert alert-{{session('notification.type')}} alert-dismissible fade show" role="alert">
         @if (is_array(session('notification.message')))
@@ -15,5 +13,5 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <?php Session::forget('notification'); Session::save(); ?>
+    <?php //Session::forget('notification'); Session::save(); ?>
 @endif

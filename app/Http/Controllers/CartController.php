@@ -22,18 +22,20 @@ class CartController extends Controller
                 'name' => 'required|min:2',
                 'email' => 'required|email|unique:carts'
             ]);
-            // dd($request->all());
+
             if ($validator->fails())
             {
                 $request->session()->flash('notification', [
                     'type' => 'danger',
                     'message' => $validator->errors()->messages(),
                 ]);
-
-                return redirect()->back()->withErrors($validator)->withInput();
+                return redirect()->back()->withInput();
             }
-
-
+            $request->session()->flash('notification', [
+                'type' => 'success',
+                'message' => "Request sent, please check your inbox.",
+            ]);
+            return redirect()->route('access-cart');
         }
 
     }

@@ -67,5 +67,9 @@
     <script src="{{asset('js/mdb.min.js')}}"></script>
     <script src="{{asset('js/all.js')}}"></script>
     <script src="{{asset('js/master.js')}}"></script>
+
+    @if (session('notification'))
+        <?php Session::forget('notification'); Session::save(); ?>
+    @endif
 </body>
 </html>
