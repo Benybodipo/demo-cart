@@ -98,7 +98,7 @@ class CartController extends Controller
     {
         $dbCart = Cart::where('api_key_id', getenv('DEMO_API_ID'))->first();
 
-        $dbCart = ($dbCart->content) ? unserialize($dbCart->content) : null;
+        $dbCart = ($dbCart && $dbCart->content) ? unserialize($dbCart->content) : null;
         $sessionCart = (session()->get('items')) ? session()->get('items') : null;
         
         $items = (!$sessionCart) ? unserialize($dbCart->content) : $sessionCart;

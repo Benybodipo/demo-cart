@@ -16,7 +16,7 @@
         <i><small>Add this 3 field in your .env</small></i>
         <table style="border-collapse: collapse; border: 1px solid lightgray; margin-bottom: 25px">
             <tr>
-                <td style="border: 1px solid lightgray; padding: 10px;">DEMO_API_I=</td>
+                <td style="border: 1px solid lightgray; padding: 10px;">DEMO_API_ID=</td>
                 <td style="border: 1px solid lightgray; padding: 10px;">{{$data['id']}}</td>
             </tr>
             <tr>
