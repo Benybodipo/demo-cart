@@ -16,7 +16,7 @@ $(function (){
         })
     });
 
-    $('.update-quamtity').change(function (e) {
+    $('.update-quantity').change(function (e) {
         e.stopImmediatePropagation();
 
         var $this = $(this); 
@@ -32,7 +32,6 @@ $(function (){
                 'qty': qty
             },
             success: function (response) {
-                console.log(response);
                 var total = 0;
                 var count = 0;
                 
@@ -44,11 +43,12 @@ $(function (){
                     total += n;
                 });
 
-                $.each($("#cart-table td input"), function (key, val){
+                $.each($("#cart-table td input[type='number']"), function (key, val){
                     var n = parseInt($(this).val());
                     count += n;
                 });
-
+                
+                
                 $("#cart-table .count").text(count);
                 $("#cart-table .total").text(total.toFixed(2));
                 

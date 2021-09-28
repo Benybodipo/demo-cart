@@ -85,10 +85,19 @@ class CartController extends Controller
     
     public function home(Request $request, $api_key = NULL)
     {
+        $has_updates = 0;
         $dbCart = Cart::where('api_key_id', getenv('DEMO_API_ID'))->first();
-        $sessionCart = session()->get('items');
+
+        $dbCart = ($dbCart->content) ? unserialize($dbCart->content) : null;
+        $sessionCart = (session()->get('items')) ? session()->get('items') : null;
         
-        $items = (!$sessionCart) ? json_decode($dbCart->content) : $sessionCart;
+        $items = (!$sessionCart) ? unserialize($dbCart->content) : $sessionCart;
+
+        // dd(serialize((array)$sessionCart) === serialize((array)$dbCart));
+        if (serialize((array)$sessionCart) === serialize((array)$dbCart));
+        {
+            $has_updates = 1;
+        }
         
         $ids = array_map(function ($value) { return explode('_', $value)[1]; }, array_keys($items));
         $count = array_map(function ($value) {  return $value['qty']; }, $items);
@@ -97,6 +106,7 @@ class CartController extends Controller
         return view('pages.cart')->with(compact('products'))
                             ->with(compact('items'))
                             ->with(compact('ids'))
+                            ->with(compact('has_updates'))
                             ->with(compact('count'));
     }
 
@@ -168,7 +178,7 @@ class CartController extends Controller
 
         
         $success = Cart::where('api_key_id', getenv('DEMO_API_ID'))->first()->update([
-            'content' => json_encode($sessionCart)
+            'content' => serialize($sessionCart)
         ]);
 
         if ($success)

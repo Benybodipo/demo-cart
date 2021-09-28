@@ -33,7 +33,7 @@
                                         ${{$product->price}}
                                     </td>
                                     <td>
-                                        <input type="number" name="" min="1" value='{{$items["id_{$product->id}"]["qty"]}}' id="" style="max-width: 50px" class="form-control form-control-sm update-quamtity" data-route="{{route('update-item', [request()->route('api_key'), $product->id])}}" >
+                                        <input type="number" name="" min="1" value='{{$items["id_{$product->id}"]["qty"]}}' id="" style="max-width: 50px" class="form-control form-control-sm update-quantity" data-route="{{route('update-item', [request()->route('api_key'), $product->id])}}" >
                                     </td>
                                     <td class="subtotal">
                                         $
@@ -63,6 +63,7 @@
                                         @csrf
                                         <button class="btn btn-success">Save Cart</button>
                                         <input type="hidden" name="">
+                                        {{-- {{($has_updates)}} --}}
                                     </form>
                                 </td>
                             </tr>
