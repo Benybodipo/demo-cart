@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Key;
 use Validator;
@@ -57,11 +58,10 @@ class CartController extends Controller
 
             if ($validator->fails())
             {
-                $data = ([
+                $request->session()->flash('notification', [
                     'type' => 'warning',
                     'message' => $validator->errors()->messages(),
                 ]);
-                $request->session()->flash('notification', $data);
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
@@ -71,7 +71,17 @@ class CartController extends Controller
     
     public function home(Request $request, $api_key = NULL)
     {
-        return view('pages.cart')->with('products', Product::paginate(10));
+        $cart = Cart::where('api_key_id', getenv('DEMO_API_ID'))->get();
+        $items = session()->get('items');
+        
+        // $items = (!count($cart)) ? () : $items;
+        $ids = array_map(function ($value) { return explode('_', $value)[1]; }, array_keys($items));
+        $count = array_map(function ($value) {  return $value['qty']; }, $items);
+
+        $products = \App\Models\Product::whereIn('id', $ids)->get();
+        return view('pages.cart')->with(compact('products'))
+                            ->with(compact('ids'))
+                            ->with(compact('count'));
     }
 
     public function profile(Request $request, $api_key = NULL)
@@ -81,15 +91,77 @@ class CartController extends Controller
 
     public function update(Request $request)
     {
-        $cart = Cart::whereId($request->id);
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:carts'
+        ]);
 
-        dd($cart);
+        if ($validator->fails())
+        {
+            $request->session()->flash('notification', [
+                'type' => 'danger',
+                'message' => $validator->errors()->messages(),
+            ]);
+            return redirect()->back()->withInput();
+        }
+        $success = Cart::where('api_key_id', getenv('DEMO_API_ID'))
+                        ->first()
+                        ->update([ 'email' => $request->email ]);
+
+        if ($success)
+        {
+            $request->session()->flash('notification', [
+                'type' => 'success',
+                'message' => 'Cart info updated successfully. Please update your API credentials in the .env',
+            ]);
+            return back();
+        }
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $api_key)
     {
-        $cart = Cart::whereId($request->id);
-        dd($cart);
+        $key = Key::where('key', $api_key)->first();
+
+
+        $cart = Cart::where('api_key_id', $key->id)->first();
+        if ($cart)
+        {
+            $success = $cart->delete();
+            if ($success)
+            {
+                $request->session()->flash('notification', [
+                    'type' => 'success',
+                    'message' => 'Cart deleted successfully',
+                ]);
+                $key->delete();
+                return redirect()->route('home');
+            }
+        }
+        $request->session()->flash('notification', [
+            'type' => 'warning',
+            'message' => 'Invalid credentials.',
+        ]);
+        return back();
+    }
+
+    public function saveCartToDb(Request $request, $api_key)
+    {
+        $dbCart = Cart::where('api_key_id', getenv('DEMO_API_ID'));
+        $sessionCart = session()->get('items');
+
+        
+        $success = Cart::where('api_key_id', getenv('DEMO_API_ID'))->first()->update([
+            'content' => json_encode($sessionCart)
+        ]);
+
+        if ($success)
+        {
+            $request->session()->flash('notification', [
+                'type' => 'success',
+                'message' => 'Cart successfully saved to database.',
+            ]);
+            return back();
+        }
     }
 
     public function addItem(Request $request, $api_key, $id)

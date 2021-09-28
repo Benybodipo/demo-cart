@@ -29,7 +29,10 @@ Route::group(['middleware' => 'web'], function(){
     Route::group(['prefix' => 'cart', 'middleware' => 'api.key'], function () {
         Route::get('/{api_key?}', [CartController::class, 'home'])->name('cart');
         Route::post('/{api_key}/add-item/{product_id}', [CartController::class, 'addItem'])->name('add-item');
+        Route::post('/save-cart-to-db/{api_key}', [CartController::class, 'saveCartToDb'])->name('save-cart-to-db');
         Route::post('/{api_key}/update-item/{product_id}', [CartController::class, 'updateItem'])->name('update-item');
+        Route::post('/{api_key}/update-cart-info/', [CartController::class, 'update'])->name('update-cart-info');
+        Route::get('/{api_key}/delete-cart', [CartController::class, 'delete'])->name('delete-cart');
         Route::post('/{api_key}/delete-item/{product_id}', [CartController::class, 'deleteItem'])->name('delete-item');
         Route::get('/{api_key}/my-cart', [CartController::class, 'profile'])->name('profile');
     });
