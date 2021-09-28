@@ -1,0 +1,608 @@
+html {
+    scroll-behavior: smooth;
+}
+body{
+    background-color: #F5F5F5;
+}
+*{
+    box-sizing: border-box;
+}
+/* Header */
+/* nav.navbar.navbar-light.bg-light::before {
+    content: "CALLBACK";
+    margin-left: -115px;
+} */
+.job{
+    margin-left: 0px;
+}
+/* 
+.callback-container{
+    margin-top: 150px;
+} */
+
+/*.btn.btn-primary.col-sm-12{*/
+/*    padding: 7px 15px;*/
+/*    align-items: center;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+    
+/*    -webkit-background-color:#0378FF !important;*/
+/*	-moz-background-color:#0378FF !important;*/
+/*	-o-background-color:#0378FF !important;*/
+/*	-ms-background-color:#0378FF !important;*/
+/*    background-color: #0378FF !important;*/
+    
+/*}*/
+.role-header.col-sm-12{
+    
+    color: #fff;
+    padding: 5px 13px;
+    font-size: 11pt;
+    border-radius: 4px;
+    box-shadow: 0px 0px 15px rgb(0 0 0 / 25%);
+    /* box-shadow: 1px -1px 3px #000; */
+}
+
+/*.btn-primary {
+	
+} */
+.navbar{
+    width: 100%; 
+    height:100px; 
+    padding: 0 115px; 
+    position: fixed;
+    display: flex;
+    
+    border-bottom: 4px solid #0378FF;
+    z-index: 999;
+}
+div.download-dropup {
+    width: 0%;
+    padding: 0;
+    float: right;
+}
+.download-btn-dropup {
+    height: 35px;
+    display: flex;
+    float: right;
+    margin-right: -20px;
+    border-radius: 50%;
+}
+.btn-dropup-download {
+    border-radius: 50%;
+}
+
+/* The colapse session */
+div#collapseJobs {
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+}
+/* Talent card */
+.talent-card{
+    padding: 8px;
+    margin-top: 10px;
+    margin-left: 12px;
+    display: flex;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.talent-card img{
+    border-radius: 10px;
+}
+@media (min-width: 768px){
+    .col-md-4 {
+        width: 31.9%;
+    }
+}
+
+.talent p {
+    margin: 0;
+}
+.talent-name,.talent-number{
+    font-weight: bold;
+    font-size: 12pt;
+
+}
+.talent-details{
+    font-size: 10pt;
+}
+.talent-info{
+    margin-left: 10px;
+}
+.talentInfo {
+    margin-right: 25px;
+}
+p.talentNameCastingN {
+    padding: 10px 0 0 10px;
+    font-size: 15pt;
+    font-weight: 600;
+}
+.shotlist-btn{  
+    padding: 5px 10px; 
+    font-size:10px;
+    font-weight: 600;
+    float: right;
+    text-transform: none;
+}
+div.action-btn .shotlist-btn{
+    margin-left: 10px;
+}
+div.shotlist-talent{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+
+}
+/* Draggable session */
+.draggable {
+    margin-top: 10px;
+    padding: 0;
+}
+.dropdown-item{
+    padding: 0 !important;
+}
+/* .container{
+	background-color: #333;
+
+} */
+.draggable{
+	/* padding: 1rem; */
+	/* background-color: #fff;
+	border:1px solid #000; */
+	cursor: move;
+}
+.draggable.dragging{
+	opacity: .5;
+}
+/* Download talent btn */
+a.get-talentFile {
+    padding: 9px;
+    width: 120px;
+    height: 35px;
+    margin-left: -120px;
+}
+.download-talent-file {
+    width: 0%;
+    /* margin: 0; */
+    padding: 0;
+    float: left;
+    display: flex;
+    z-index: 1;
+}
+
+
+
+/*
+*
+*Single talent page css
+*
+*/
+
+.btn-primary.col-sm-12.single-talent-header {
+    height: 35px;
+    padding: 5px 25px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* back div btn */
+.go-back-div {
+    width: 0%;
+    /* margin: 0; */
+    padding: 0;
+    float: left;
+    display: flex;
+    z-index: 1;
+}
+.btn-go-back {
+    border-radius: 50%;
+    height: 35px;
+    padding: 5px 15px;
+    margin-left: -20px;
+}
+svg#go-back-icon {
+    margin-top: 4px;
+    font-size: 17px;
+}
+/*.btn.btn-primary.col-sm-12 {*/
+/*    padding: 7px 15px;*/
+/*    align-items: center;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+.roleHeader-row{
+    margin: 0;
+}
+.dropdown.col-sm-2{
+    padding: 0;
+}
+
+.singleTalentSession {
+    padding: 0;
+}
+
+/* Social icons */
+.single-talent-conteiner.row {
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 0;
+    padding: 15px 5px;
+    margin-bottom: 40px;
+}
+.card-body{
+    display: flex;
+    justify-content: space-around;
+}
+.social-icons{
+    font-size: 50px;
+}
+
+/*The next and prev btn */
+button.prev-talent, button.next-talent {
+    position: absolute;
+    top: 70%;
+    width: 5%;
+    height: 65px;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+button.prev-talent svg, button.next-talent svg {
+   font-size: 20px;
+}
+button.next-talent {
+    right: -2.5%;
+}
+button.prev-talent{
+    left: 2.5%;
+}
+/* div#talentcarousel {
+    padding: 0;
+}
+button.carousel-control-next {
+    margin-right: -104px;
+    width: 10%;
+    border-radius: 10px;
+}
+button.carousel-control-prev {
+    margin-left: -104px;
+    width: 10%;
+    border-radius: 10px;
+}
+button.carousel-control-prev, button.carousel-control-next{
+    top: 40%;
+    height: 100px;
+} */
+a.vidDownload {
+    position: absolute;
+    /* margin-top: -25px; */
+    right: 5px;
+}
+
+/* Photo gallery */
+.photo-container, .document-container{
+    position: relative;
+    column-count: 3;
+    padding: 20px;
+}
+.image{
+    display: inline-block;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.photo-container .image img{
+    width: 100%;
+    /* transition: 0.25s ease-in-out; */
+    cursor: pointer;
+    border-radius: 5px;
+}
+/* .image:hover img{
+    transform:scale(1.1);
+} */
+
+/* element.style {
+} */
+.btn-hide{
+    position: absolute;
+    /* float: right; */
+    /* display: flex; */
+    padding: 5px;
+    /* justify-content: left; */
+}
+/* For the gallery */
+@media screen and (max-width:768px){
+    .photo-container, .portfolio-container{
+        column-count: 2;
+    }
+}
+@media screen and (max-width:425px){
+    .photo-container, .portfolio-container{
+        column-count: 1;
+    }
+}
+
+/* 
+*For the lightbox 
+*/
+.preview-box{
+    position: fixed;
+    max-width: 400px;
+    width: 100%;
+    /* margin-top: 5px; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: #fff;
+    padding: 0 5px 5px 5px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+
+    opacity: 0;
+    pointer-events: none;
+    z-index: 99999;
+   
+}
+.preview-box.show{
+    opacity: 1;
+    pointer-events:painted;
+    transform: translate(-50%, -50%) scale(1);
+    transition: all 0.3s ease;
+}
+.preview-box .details{
+    display: flex;
+    align-items: center;
+    pad: 12px 15px 12px 10px;
+    justify-content: space-between;
+}
+.preview-box .details .closeicon{
+    color: darkred;
+    cursor: pointer;
+    font-size: 20px;
+}
+.details .title{
+    display: flex;
+    font-size: 18px;
+    font-weight: 800;
+}
+.details .title p{
+    margin: 0 5px; 
+}
+.details .title p.current-img{
+    font-weight: 500;
+}
+.preview-box .img-box{
+    display: flex;
+    width: 100%;
+    
+}
+.img-box .slide{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%);
+    font-size: 30px;
+    cursor: pointer;
+    color:#fff;
+    /* width: 50px;
+    line-height: 50px;
+    text-align: center; */
+}
+.img-box .slide.prev{
+    /* left: 0; */
+    margin-left: 10px;
+    
+}
+.img-box .slide.next{
+    right: 0;
+
+}
+.preview-box .img-box img{
+    width: 100%;
+    border-radius: 0 0 3px 3px;
+    
+}
+
+/* The tabs
+#tabsSingleTalentSession > input{
+   display: none;
+}
+#tabsSingleTalentSession > label{
+    font-size: 8pt;
+    display: block;
+    float: left;
+    padding: 12px 20px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 0;
+}
+
+#tabsSingleTalentSession > label:hover, 
+#tabsSingleTalentSession > input:checked + label{
+    background-color: mediumblue;
+}
+#tabsSingleTalentSession .tabs{
+    clear: both;
+}
+.tabs > div{
+    width: 84.5%;
+    position: absolute;
+    border: 2px solid #007BFF;
+    padding: 10px 10px 40px;
+    opacity: 0;
+    z-index: 0;
+    transform: rotateX(20deg);
+    transform-origin: top center;
+    transition: opacity 0.3s, transform 1s;
+    height: auto;
+}
+#tab_stats:checked ~ .tabs > div:nth-of-type(1),
+#tab_video:checked ~ .tabs > div:nth-of-type(2),
+#tab_photos:checked ~ .tabs > div:nth-of-type(3),
+#tab_portfolio:checked ~ .tabs > div:nth-of-type(4){
+    transform: rotateX(0deg);
+    opacity: 1;
+    z-index: 1;
+} */
+
+/* Video Light box */
+/* .video-lightbox{
+    position: fixed;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background-color: #000000;
+    visibility: hidden;
+    opacity: 0;
+}
+.video-lightbox .boxactive{
+    visibility: visible;
+    opacity: 1;
+}
+.video-lightbox iframe{
+    position: relative;
+    max-width: 900px;
+    outline: none;
+}
+/* .video-lightbox video{
+    position: relative;
+    max-width: 900px;
+    outline: none;
+} */
+/* i.close-btn{
+    position: absolute;
+    top: 30%;
+    right: 30%;
+    cursor: pointer;
+    filter: invert(1);
+    max-width: 32px;
+    color: red;
+} */
+
+
+.feature-img{
+    margin: auto;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.play-btn.t-videos{
+    width: 35px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    color: rgba(250,250,250,.6);
+    font-size: 50px;
+}
+.video-player{
+    position: fixed;
+    width: 70%;
+    margin-top: 5px; 
+    top: 50%;
+    left: 50%;
+    padding: 5px;
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+    display: none;
+    z-index: 99999;
+}
+/*.showVideo{*/
+/*    opacity: 1;*/
+/*    pointer-events:painted;*/
+/*    transform: translate(-50%, -50%) scale(1);*/
+/*    transition: all 0.3s ease;*/
+/*}*/
+/*.video-player{*/
+/*    width: 80%;*/
+    /*position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    z-index: 999999;*/
+/*    display: none;*/
+/*    overflow: auto;*/
+/*    position: fixed;*/
+/*    justify-content: center;*/
+    
+/*    transition:0.5s;*/
+/*}*/
+
+video:focus{
+    outline: none;
+}
+
+.close-btn{
+    position:absolute;
+    top: 10px;
+    right: 30px;
+    width: 30px;
+    cursor: pointer;
+    color:#ffffff;
+}
+.the-job-sub-title{
+    font-size: 12px; 
+    color:#fff; 
+    margin: 0; 
+    background-color:#F93154;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+.company-logo img{
+    max-width: 140px; height: 80px;
+}
+.casting-agency-logo img{
+    max-width: 140px; height: auto;
+}
+.job{
+    font-weight:600; text-transform: uppercase; text-align:center;
+}
+.job span{
+    font-size: 18pt
+}
+
+/* Callback Single talent Media query */
+@media screen and (max-width: 768px) {
+    /*The header*/
+    nav.navbar.navbar-light.bg-light{
+        padding: 15px;
+        height: auto !important;
+    }
+    nav.navbar.navbar-light.bg-light div  img{
+        height:auto !important;
+        
+    }
+    .job{
+        margin-left: 10px !important;
+        padding-top:15px !important;
+    }
+    .job span{
+        font-size: 12pt !important;
+        font-weight:600 !important;
+        
+    }
+    /*The role heading*/
+    .main-role-header{
+        width: 50% !important;
+        font-size: 11pt !important;
+        
+    }
+    
+    /*The single talent session*/
+    .videosContainer {
+        padding: 10px 25px;
+    }
+    .card{
+        width: auto;
+    }
+    
+}
