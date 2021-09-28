@@ -21,7 +21,7 @@ use App\Http\Controllers\CartController;
 
 Route::group(['middleware' => 'web'], function(){
 
-    Route::get('products', [ProductController::class, 'home'])->name('home');
+    Route::get('/', [ProductController::class, 'home'])->name('home');
     Route::match(['get','post'],'/access-cart', [CartController::class, 'accessCart'])->name('access-cart');
     
     Route::get('products/{api_key}', [ProductController::class, 'index'])->middleware('api.key')->name('products');

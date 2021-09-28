@@ -9,6 +9,9 @@ use App\Models\Key;
 use Validator;
 use Session;
 use Facades\App\Http\Controllers\keyController;
+use App\Mail\ApiCredentialsMail;
+
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -45,6 +48,14 @@ class CartController extends Controller
                 'api_key_id' => $new_key->id,
             ]);
 
+            # Send credentials
+            Mail::to('benybodipo@gmail.com')->send(new ApiCredentialsMail([
+                'id' => $new_key->id,
+                'user' => $request->email,
+                'key' => $new_key->key,
+            ]));
+
+            # Send response
             $request->session()->flash('notification', [
                 'type' => 'success',
                 'message' => "Request sent, please check your inbox.",
@@ -85,7 +96,6 @@ class CartController extends Controller
     
     public function home(Request $request, $api_key = NULL)
     {
-        $has_updates = 0;
         $dbCart = Cart::where('api_key_id', getenv('DEMO_API_ID'))->first();
 
         $dbCart = ($dbCart->content) ? unserialize($dbCart->content) : null;
@@ -93,11 +103,6 @@ class CartController extends Controller
         
         $items = (!$sessionCart) ? unserialize($dbCart->content) : $sessionCart;
 
-        // dd(serialize((array)$sessionCart) === serialize((array)$dbCart));
-        if (serialize((array)$sessionCart) === serialize((array)$dbCart));
-        {
-            $has_updates = 1;
-        }
         
         $ids = array_map(function ($value) { return explode('_', $value)[1]; }, array_keys($items));
         $count = array_map(function ($value) {  return $value['qty']; }, $items);
@@ -106,7 +111,6 @@ class CartController extends Controller
         return view('pages.cart')->with(compact('products'))
                             ->with(compact('items'))
                             ->with(compact('ids'))
-                            ->with(compact('has_updates'))
                             ->with(compact('count'));
     }
 

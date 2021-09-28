@@ -28,7 +28,7 @@
                     <a class="nav-link" href="{{route('access-cart')}}">Access Cart</a>
                   </li>
                   <li class="nav-item">
-                    <a class="btn  nav-link btn-success" href="{{route('request-api-key')}}">Request API Key</a>
+                    <a class="btn  nav-link btn-success" href="{{route('request-api-key')}}" style="color: white;">Request API Key</a>
                   </li>
                 @else
                   <li class="nav-item">
