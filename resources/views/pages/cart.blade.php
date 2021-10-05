@@ -3,7 +3,7 @@
 @section('main')
     <div class="row cart-row">
         @include('includes.flash-message')
-        @if (count($items))
+        @if (!is_null($items) && count($items))
             <div class="pt-4 pb-4 cart-container">
                 <h3>My cart</h3>
                 <table class="table" id="cart-table"> 

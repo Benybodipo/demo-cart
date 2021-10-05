@@ -125,7 +125,7 @@ class CartController extends Controller
     public function exitCart(Request $request)
     {
         Cookie::queue(Cookie::forget('DEMO_API_KEY'));
-        session()->pull("items.id_".session()->get('user.id'));
+        session()->pull("items");
         session()->pull("user");
 
         return redirect()->route('home');
@@ -140,14 +140,23 @@ class CartController extends Controller
          
         $items = (!$sessionCart) ? $dbCart : $sessionCart;
 
-        if (!session()->exists('items') && count($items))
+        if (!session()->exists('items'))
         {
-            session()->put("items", $items);
+            if (!is_null($items))
+                session()->put("items", $items);
+            else
+                session()->put("items");
         }
 
         #validate more
-        $ids = array_map(function ($value) { return explode('_', $value)[1]; }, array_keys($items));
-        $count = array_map(function ($value) {  return $value['qty']; }, $items);
+        $ids = [];
+        $count = [];
+
+        if (!is_null($items))
+        {
+            $ids = array_map(function ($value) { return explode('_', $value)[1]; }, array_keys($items));
+            $count = array_map(function ($value) {  return $value['qty']; }, $items);
+        }
 
         $products = \App\Models\Product::whereIn('id', $ids)->get();
         return view('pages.cart')->with(compact('products'))
