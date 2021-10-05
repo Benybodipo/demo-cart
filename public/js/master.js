@@ -79,4 +79,57 @@ $(function (){
             }
         })
     });
+
+
+    
+    // Login to your cart
+    $('#btn-access-cart').click(function (e) {
+        e.preventDefault();
+        var url = $('#form-access-cart').data('action');
+        var key = $('#form-access-cart').find('input[name="key"]').eq(0).val()
+
+        /**
+         * 1. Verify if it's a valid API KEY via Ajax
+         * 2. After verifying submit the form
+         */
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {
+                key: key, 
+                _token: $('meta[name="csrf_token"]').attr('content')
+            },
+            success: function (response) {
+                
+                if (response.success)
+                {
+                    $('#form-access-cart .verified').val(1);
+                    $('#form-access-cart .key_id').val(response.key_id);
+                    $('#form-access-cart').submit();
+                    
+                }
+            }
+        })
+    });
+
+
+    $('#btn-delete-cart').click(function (e) {
+        e.preventDefault();
+        var url = $(this).data('href');
+        var _token = $('#delete-account-form').find('input[name="_token"]').eq(0).val()
+
+        
+        $.ajax({
+            url: url,
+            method: 'DELETE',
+            data: {_token: _token},
+            success: function (response) {
+                console.log(response);
+                if (response.success)
+                {
+                    window.location.href = $('#btn-delete-cart').attr('href');
+                }
+            }
+        })
+    })
 });

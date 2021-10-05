@@ -23,7 +23,7 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="{{(request()->route('api_key')) ? route('products', request()->route('api_key')) : route('home')}}">Products</a>
                 </li>
-                @if (!request()->route('api_key'))
+                @if (!Cookie::get('DEMO_API_KEY'))
                   <li class="nav-item">
                     <a class="nav-link" href="{{route('access-cart')}}">Access Cart</a>
                   </li>
@@ -32,19 +32,20 @@
                   </li>
                 @else
                   <li class="nav-item">
-                    <a class="nav-link" href="{{route('cart', request()->route('api_key'))}}">My Cart</a>
+                    <a class="nav-link" href="{{route('cart')}}">My Cart</a>
                   </li>
                 @endif
               </ul>
-              @if (request()->route('api_key'))
+              @if (Cookie::get('DEMO_API_KEY'))
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item user-avatar-container">
                       <a class="nav-link user-avatar" aria-expanded="false" href="{{route('profile', request()->route('api_key'))}}">
-                        <strong>{{getenv('DEMO_API_USER')}}</strong>
+                        <strong class="profile-icon">{{(session()->get('user.email')[0])}}</strong>
                       </a>
                     </li>
-                    <li class="nav-item logout">
-                      <a class="nav-link">
+                    <li class="nav-item logout" style="padding-top: 8px;">
+                      <a class="nav-link" href="{{route('exit-cart')}}">
+                        Log out
                         <i class="fas fa-sign-out-alt"></i>
                       </a>
                     </li>

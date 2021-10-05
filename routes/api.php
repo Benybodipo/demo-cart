@@ -20,6 +20,7 @@ use App\Http\Controllers\KeyController;
 Route::prefix('keys')->group( function ()
 {
     Route::get('/{id?}', [KeyController::class, 'index'])->name('get-key');
+    Route::post('/verify', [KeyController::class, 'verify'])->name('verify-key');
     Route::post('/create', [KeyController::class, 'create'])->name('request-key');
     Route::put('/update/{key}', [KeyController::class, 'update'])->name('update-key');
     Route::delete('/delete/{key}', [KeyController::class, 'destroy'])->name('delete-key');

@@ -3,7 +3,7 @@
 @section('main')
     <div class="row cart-row">
         @include('includes.flash-message')
-        @if (session()->get('items'))
+        @if (count($items))
             <div class="pt-4 pb-4 cart-container">
                 <h3>My cart</h3>
                 <table class="table" id="cart-table"> 
@@ -17,7 +17,6 @@
                     </tr>
     
                     <tbody>
-                        {{-- <form action=""> --}}
                             @php
                                 $total = 0;
                             @endphp
@@ -33,7 +32,7 @@
                                         ${{$product->price}}
                                     </td>
                                     <td>
-                                        <input type="number" name="" min="1" value='{{$items["id_{$product->id}"]["qty"]}}' id="" style="max-width: 50px" class="form-control form-control-sm update-quantity" data-route="{{route('update-item', [request()->route('api_key'), $product->id])}}" >
+                                        <input type="number" name="" min="1" value='{{$items["id_{$product->id}"]["qty"]}}' id="" style="max-width: 50px" class="form-control form-control-sm update-quantity" data-route="{{route('update-item', $product->id)}}" >
                                     </td>
                                     <td class="subtotal">
                                         $
@@ -42,7 +41,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-danger delete-item"  data-route="{{route('delete-item', [request()->route('api_key'), $product->id])}}">
+                                        <button type="button" class="btn btn-sm btn-danger delete-item"  data-route="{{route('delete-item',$product->id)}}">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>
@@ -62,12 +61,9 @@
                                     <form action="{{route('save-cart-to-db', request()->route('api_key'))}}" method="POST">
                                         @csrf
                                         <button class="btn btn-success">Save Cart</button>
-                                        <input type="hidden" name="">
-                                        {{-- {{($has_updates)}} --}}
                                     </form>
                                 </td>
                             </tr>
-                        {{-- </form> --}}
                     </tbody>
                 </table>
             </div>

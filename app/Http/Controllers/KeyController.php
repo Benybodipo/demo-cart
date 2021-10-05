@@ -22,6 +22,25 @@ class KeyController extends Controller
         return response()->json(compact('keys'));
     }
 
+    public function verify(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'key' => 'required|min:25|max:25|exists:keys,key'
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json([
+                'type' => 'warning',
+                'errors' => $validator->errors()->messages(),
+            ], 401);
+        }
+        $key_id = Key::where('key', $request->key)->first()->id;
+
+        return response()->json([ 'success' => true, 'key_id' => $key_id ], 200);
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -110,13 +129,18 @@ class KeyController extends Controller
             'key' => 'required|min:25|max:25|exists:keys,key'
         ]);
 
+        
         if ($validator->fails())
             return response()->json($validator->errors(), 401);
         
         if ($_key = Key::where('key', $key)->first())
         {
             $_key->delete();
-            return response()->json(['message' => "Key deleted"], 200);
+            return response()->json(
+            [
+                'success' => true
+            ], 
+            200);
         }
     }
 }
