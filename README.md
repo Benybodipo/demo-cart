@@ -52,14 +52,7 @@
     ```
 11. Once the application is up and running, request an API Key from the tab on the menu.
 12. You will receive an email with the credentails for the demo API
-13. On you.env paste underneath
-    ```
-    DEMO_API_ID=id
-    DEMO_API_KEY=key
-    DEMO_API_USER=yourEmailAddress
-   
-    ```
-14. On the app top menu click on Access Cart. Once on the page, use your DEMO_API_KEY to access your cart
+13. On the app top menu click on Access Cart. Once on the page, use your DEMO_API_KEY to access your cart
 
 
 ## Good luck!
