@@ -133,9 +133,9 @@ class CartController extends Controller
     
     public function home(Request $request, $api_key = NULL)
     {
-        $dbCart = Cart::where('api_key_id', session()->get('user.id'))->first();
+        $dbCart = Cart::where('id', session()->get('user.id'))->first();
 
-        $dbCart = ($dbCart && $dbCart->content) ? unserialize($dbCart->content) : null;
+        $dbCart = (!is_null($dbCart) && $dbCart->content) ? unserialize($dbCart->content) : null;
         $sessionCart = (session()->get('items')) ? session()->get('items') : null;
          
         $items = (!$sessionCart) ? $dbCart : $sessionCart;
@@ -234,7 +234,7 @@ class CartController extends Controller
         $sessionCart = session()->get('items');
 
         
-        $success = Cart::where('api_key_id', session()->get('user.id'))->first()->update([
+        $success = Cart::where('id', session()->get('user.id'))->first()->update([
             'content' => serialize($sessionCart)
         ]);
 
